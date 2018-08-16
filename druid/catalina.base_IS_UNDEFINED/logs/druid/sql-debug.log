@@ -1,0 +1,4 @@
+16:19:35.165 [main] DEBUG c.w.d.DruidApplication - [logStarting,53] - Running with Spring Boot v2.0.4.RELEASE, Spring v5.0.8.RELEASE
+16:19:37.408 [localhost-startStop-1] DEBUG c.w.d.d.U.selectUserByUsername - [debug,159] - ==>  Preparing: select userId, jobNumber, userName, realName, password, birthday, TIMESTAMPDIFF(YEAR,birthday,NOW()) age, entryTime, address, phone, nation, email, identity, dimissiomTime, createTime, createUserId, modifyTime, modifyUserId, userType,salary from weixun_user where userName = ? 
+16:19:37.502 [localhost-startStop-1] DEBUG c.w.d.d.U.selectUserByUsername - [debug,159] - ==> Parameters: test(String)
+16:19:37.517 [localhost-startStop-1] DEBUG c.w.d.d.U.selectUserByUsername - [debug,159] - <==      Total: 1

@@ -1,0 +1,72 @@
+app:
+  name: springBoot整合druid
+  version: 1.0.1
+server:
+  port: 9494
+  tomcat:
+    redirect-context-root:
+
+## 数据库采用 druid 的加密方式
+## druid 生成加密方式 java -cp druid-1.1.10.jar com.alibaba.druid.filter.config.ConfigTools root
+## root
+## private-key : MIIBVAIBADANBgkqhkiG9w0BAQEFAASCAT4wggE6AgEAAkEAuW3tbg3cMBfQ4iKEL3jLP6O8/hvoGQAvjCgku/8MKMZ2us8ZM6Ni/ZFvLhUMwD1VxIJlmAM4HQT9btiFb4/9bwIDAQABAkBenhIWIypku/JRQW2Tz55ehc1tGI5RG4Ank2BTMWxh7SxrsIdUTAXmrrQ5iQoagXVq3xMNZrwPhmJu9TdGUCgxAiEA54Jpltt018X4VxywKfCiyqFFEptoI8/Kvqvo8DXI+XcCIQDNC5sceiFYOFIVm9hoJXX/cRMZJ7jPEL1jUgfq0LSZyQIgfWvgqnLwRSmilgcbxUzx1Ncz5ZW+AJDFZTEbPG/XFpcCIHiZROfg5U/QAGd5PDU1I0vUo9j9xfLz85BBJSr1CeQRAiEAhYxekF/HDCWqoyhLWSqPqje8ag5aizGgCTGdDDOK6ww=
+spring:
+  datasource:
+    druid:
+      name: mysqlDataSource
+      url: jdbc:mysql://localhost:3306/weixun?useUnicode=true&characterEncoding=utf8&useSSL=false
+      username: root
+      public-key: MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBALlt7W4N3DAX0OIihC94yz+jvP4b6BkAL4woJLv/DCjGdrrPGTOjYv2Rby4VDMA9VcSCZZgDOB0E/W7YhW+P/W8CAwEAAQ==
+      password: VekOfjsdlCLuQdbspGA8LL/GuyF/wsvClD2aZBctDPlFHLnoWmmzp7Zc/6PzVn6QSdnDlml9sA305JjCHrBAcw==
+      driver-class-name: com.mysql.jdbc.Driver
+      initial-size: 0
+      max-active: 8
+      pool-prepared-statements: false
+      validation-query: select 1
+      test-while-idle: true
+      # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      connection-properties: config.decrypt=true;config.decrypt.key=${spring.datasource.druid.public-key};druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,wall,slf4j
+      # 合并多个DruidDataSource的监控数据
+      #useGlobalDataSourceStat: true
+      filter:
+        config:
+          ### 启用ConfigFilter （使用数据库加密 需开启 ConfigFilter）
+          enabled: true
+        stat:
+          enabled: true
+          db-type: mysql
+          slow-sql-millis: 2000
+          log-slow-sql: true
+        wall:
+          enabled: true
+          db-type: mysql
+          config:
+            delete-allow: false
+            drop-table-allow: false
+ #mybatis 配置
+mybatis:
+  # sql 对应的实体类
+  type-aliases-package: com.wyw.druid.entity
+  #映射sql.xml
+  mapper-locations: classpath:mapper/*.xml
+  #加载全局配置文件
+  config-location: classpath:mybatis-config.xml
+
+#日志配置
+logging:
+  level:
+    com.wyw.druid: debug
+    org.springframework: WARN
+    org.spring.springboot.dao: debug
+
+
+
+
+
+
+
+
+
+

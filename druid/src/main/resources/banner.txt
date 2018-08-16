@@ -1,0 +1,12 @@
+APP Name : ${app.name}
+APP Version: ${app.version}
+//////////////////////////////////////////////////////////
+//                                                      //
+//             o            o                  o        //
+//             o            o                 o0        //
+//              o       o       o          o            //
+//                  o                o                  //
+//////////////////////////////////////////////////////////
+Spring Boot Version: ${spring-boot.version}
+
+
